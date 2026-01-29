@@ -48,13 +48,16 @@ with tab3:
     st.plotly_chart(fig3)
 
 with tab4:
-    st.header("NASA's Astronomy Picture of the Day")
+    st.title("NASA's Astronomy Picture of the Day")
 
     #TODO: Call a function that generates the APOD
     url = "https://api.nasa.gov/planetary/apod?api_key="
     response = apod_generator(url, os.getenv("NASA_API_KEY"))
 
     #TODO: display the APOD image and title and other features
+    st.subheader(response["title"])
+    st.image(response["hdurl"])
+    st.subheader("Date: " + response["date"])
 
 
 
