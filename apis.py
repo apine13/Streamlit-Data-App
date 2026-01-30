@@ -13,9 +13,6 @@ final_url=url + unique_key
 response=requests.get(final_url).json()
 
 print(response.keys())
-print(response["title"])
-print(response["date"])
-print(response["hdurl"])
 
 
 def apod_generator(url, unique_key):

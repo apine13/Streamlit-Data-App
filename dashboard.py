@@ -38,6 +38,41 @@ with tab2:
                      color = "pH")
     st.plotly_chart(fig2)
 
+    st.subheader("Temperature vs Salinity by Depth Range")
+
+    # Slider for selecting depth range
+    min_depth = float(df["Total Water Column (m)"].min())
+    max_depth = float(df["Total Water Column (m)"].max())
+
+    depth_range = st.slider(
+        "Select Depth Range (m)",
+        min_value=min_depth,
+        max_value=max_depth,
+        value=(min_depth, max_depth)
+    )
+
+    # Filter dataset based on slider selection
+    filtered_df = df[
+        (df["Total Water Column (m)"] >= depth_range[0]) &
+        (df["Total Water Column (m)"] <= depth_range[1])
+        ]
+
+    # Scatter plot
+    fig = px.scatter(
+        filtered_df,
+        x="Salinity (ppt)",
+        y="Temperature (c)",
+        color="Total Water Column (m)",
+        title=f"Temperature vs Salinity for Depths {depth_range[0]}–{depth_range[1]} m",
+        labels={
+            "Sal ppt": "Salinity (ppt)",
+            "Temperature (c)": "Temperature (°C)",
+            "Total Water Column (m)": "Depth (m)"
+        }
+    )
+
+    st.plotly_chart(fig)
+
 with tab3:
     fig3 = px.scatter_3d(df,
                          x="Longitude",
